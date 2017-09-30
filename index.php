@@ -1,3 +1,6 @@
+<?php
+ ini_set('display_errors', 'on');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,9 +10,9 @@
 <body>
     <main>
         <h1> Insta Search </h1>
-        <form action="app.php" method="get">
-            <input type="text" name="username" value=""><br />
-            <input type="submit" name="search" value="Search"><br />
+        <form action="app.php" method="post">
+            <input type="text" name="username" value="popularmechanics"><br />
+            <input type="submit" name="submit" value="Search"><br />
         </form>
     </main>
 

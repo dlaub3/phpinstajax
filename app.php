@@ -1,21 +1,32 @@
 <?php
 
-if(isset($_POST['submit'])) {
-    $username = $post["username"];
-    $message = "...loading...";
+ini_set('display_errors', 'on');
+
+if (isset($_POST['submit'])) {
+    $username = $_POST['username'];
 } else {
-    $username = "pupularmechanics";
+    $username = "popularmechanics";
 }
 
+// Debugging
+// var_dump($_POST['username']);
+// exit;
 
-
+//set URL
 $url = "https://www.instagram.com/$username/?__a=1";
 
-$ch = curl_init($url);
+//get API data
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, $url);
 
-curl_setopt($ch, CURLOPT_HTTPHEADER,['Accept:application/json', 'Content-Type: application/json']);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+//send request
+$result = curl_exec($ch);
+if ($result === false) {
+    //check for errors
+    $result = curl_error($curl_connection);
+}
+// Close connection
+curl_close($ch);
 
-$data = curl_exec($ch);
-
-echo $data;
+//return result
+echo $result;
