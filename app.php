@@ -2,7 +2,10 @@
 ini_set('display_errors', 'on');
 require_once('functions.php');
 
-if (isset($_POST['submit'])) {
+if (isAjax()) {
+}
+
+if (isset($_POST['username']) && $_POST['username'] != '') {
     $username = $_POST['username'];
 } else {
     $username = "popularmechanics";
