@@ -9,5 +9,5 @@ if (isset($_POST['submit'])) {
 }
 
 $query = new ClassCurlInstagram;
-$data = $query($username);
+$data = $query->queryUsername($username);
 echo $data;
