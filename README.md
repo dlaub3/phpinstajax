@@ -8,6 +8,6 @@
 * Frontend communicates with PHP application using AJAX.
 
 ## Get Started with Docker
-  * clone the repo
+  * run ```git clone git@github.com:dlaub3/phpinstajax.git```
   * run ```docker-compose up```
   * go to localhost:8085
