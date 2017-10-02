@@ -2,10 +2,10 @@
 
 class ClassCurlInstagram
 {
-    public function queryUsername(string $username): string
+    public function query(string $search, string $urlPartial = ''): string
     {
         //set URL
-    $url = "https://www.instagram.com/$username/?__a=1";
+    $url = "https://www.instagram.com/" . $urlPartial . $search . "/?__a=1";
 
     //get API data
     $ch = curl_init();
@@ -20,12 +20,12 @@ class ClassCurlInstagram
         $result = curl_error($curl_connection);
         } elseif ($result != strip_tags($result)) {
             // contains HTML ?
-        $result = "Sorry, this page isn't available.";
+            header('Content-type: application/json');
+            $result = '{"error":"Sorry, this page isn\'t available :("}';
         }
 
     // Close connection
     curl_close($ch);
-
     //return result
     return $result;
     }

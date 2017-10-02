@@ -5,12 +5,20 @@ require_once('functions.php');
 if (isAjax()) {
 }
 
-if (isset($_POST['username']) && $_POST['username'] != '') {
-    $username = $_POST['username'];
+if (isset($_POST['search']) && $_POST['search'] != '') {
+    $search = $_POST['search'];
 } else {
-    $username = "popularmechanics";
+    exit;
 }
 
 $query = new ClassCurlInstagram;
-$data = $query->queryUsername($username);
+if (isset($_POST['option']) && $_POST['option'] === 'username') {
+    //search for a user
+  $data = $query->query($search);
+} else {
+    //default search is tag
+  $data = $query->query($search, 'explore/tags/');
+}
+
+
 echo $data;

@@ -1,33 +1,94 @@
 <template>
-  <div class="header">
-    <h1> {{h1}} </h1>
-    <form id="get" action="app.php" method="post" v-on:click.stop.prevent="getUserInfo">
-        <input type="text" name="username" value="popularmechanics"><br />
-        <input type="submit" name="submit" value="Search"><br />
-    </form>
-    <div id="data"></div>
-    
-  </div>
+  <main class="col s12 m10 l8 offset-m1 offset-l2">
+    <header class="row section white-text">
+      <div class="col s12 m10 l8 offset-m1 offset-l2">
+        <h1> {{h1}} </h1>
+        <form id="form" action="app.php" method="post" v-on:click.prevent="getUserInfo">
+          <div class="input-field">
+              <select>
+                <option value="" disabled selected>Search Type</option>
+                <option value="username">username</option>
+                <option value="tag">tag</option>
+              </select>
+            <label>Select A Search Type</label>
+          </div>
+          <label>Search Instagram</label>
+          <input type="text" name="username" value="">
+
+        <button class="btn blue waves-effect waves-light" type="submit" name="submit">Submit
+          <i class="material-icons right">send</i>
+        </button>
+        </form>
+        <h2 class="red btn error darken-2" v-on:click="error = null" v-show="error"><i class="close material-icons right">close</i>{{error}}</h2>
+      </div>
+    </header>
+    <div class="row" v-show="getResponseData != {}">
+      <div v-show="getResponseData.username != null">
+        <!-- null value allows state to reset and update view -->
+          <profile></profile>
+      </div>
+      <div v-show="getResponseData.name != null">
+        <!-- null value allows state to reset and update view -->
+          <search></search>
+      </div >
+    </div>
+
+  </main>
 </template>
 
 <script>
+import Profile from './Profile.vue';
+import Search from './Search.vue';
+import {
+  mapGetters
+} from 'vuex';
+import { mapState } from 'vuex';
+
 export default {
   name: 'app',
+  components : {
+    'profile': Profile,
+    'search': Search
+  },
+  computed: {
+    ...mapGetters([
+      'getResponseData'
+    ])
+  },
   data () {
     return {
-      h1: "Insta Search"
+      h1: "PHPInstajax",
+      biography: "I am no SAM.",
+      img: null,
+      responseData: {},
+      error: null
     }
   },
   methods: {
-    getUserInfo() {
-      let data = $(this).serialize();
-      let getUserInfo = $.post({
+    getUserInfo(e) {
+      //manually setting values since
+      //materialize-css stores selected option
+      //in HTML li not the input
+      let option = $(".active>span").html();
+      let search = $('#form [name="username"]').val();
+      let formData = {"option": option, "search": search};
+      let self = this;
+      $.post({
         url: "app.php",
-        data: data,
+        data: formData,
         dataType: "text",
         success: function(data) {
           data = JSON.parse(data);
-          $("#data").html(data.user.biography);
+          if (data.error) {
+            self.error = data.error;
+          } else {
+            self.error = null;
+          }
+          if (data.tag) {
+            self.$store.commit('update', data.tag);
+          } else if (data.user){
+            self.$store.commit('update', data.user);
+          }
         }
       });
       return false;

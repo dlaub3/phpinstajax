@@ -9,9 +9,9 @@ ini_set('display_errors', 'on');
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
 </head>
-<body>
-    <main id="app">
-    </main>
+<body class="blue-grey lighten-4">
+    <div id="app">
+    </div>
 <footer>
   <!-- webpack bundle contains css and loads it in the document head-->
   <script type="text/javascript" src="/dist/bundle.js"></script>
