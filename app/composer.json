@@ -6,5 +6,7 @@
             "email": "dlaubacher3@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+    	"PHP":">=7.0"
+    }
 }
