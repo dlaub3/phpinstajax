@@ -1,0 +1,10 @@
+{
+    "name": "dlaub/phpinstajax",
+    "authors": [
+        {
+            "name": "Dan",
+            "email": "dlaubacher3@gmail.com"
+        }
+    ],
+    "require": {}
+}
