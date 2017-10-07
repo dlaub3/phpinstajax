@@ -11,13 +11,14 @@ if (isset($_POST['search']) && $_POST['search'] != '') {
     exit;
 }
 
+
 $query = new ClassCurlInstagram;
 if (isset($_POST['option']) && $_POST['option'] === 'username') {
     //search for a user
-  $data = $query->query($search);
+    $data = $query->query($search);
 } else {
     //default search is tag
-  $data = $query->query($search, 'explore/tags/');
+    $data = $query->query($search, 'explore/tags/');
 }
 
 

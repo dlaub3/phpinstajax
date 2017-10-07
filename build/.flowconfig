@@ -1,0 +1,8 @@
+[ignore]
+.*/node_modules/vue/
+.*/node_modules/vue-router/
+[include]
+
+[libs]
+
+[options]

@@ -37,6 +37,7 @@
 </template>
 
 <script>
+
 import Profile from './Profile.vue';
 import Search from './Search.vue';
 import {
@@ -58,8 +59,6 @@ export default {
   data () {
     return {
       h1: "PHPInstajax",
-      biography: "I am no SAM.",
-      img: null,
       responseData: {},
       error: null
     }

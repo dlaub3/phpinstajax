@@ -1,5 +1,5 @@
-const $ = require("jquery");
+import $ from 'jquery';
 
-$(document).ready(function() {
+$(document).ready(() => {
   $('select').material_select();
 });

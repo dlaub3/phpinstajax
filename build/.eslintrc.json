@@ -1,0 +1,39 @@
+{
+    "extends": ["vue", "airbnb-base"],
+    "parser": "babel-eslint",
+    "plugins": [
+        "vue",
+        "html",
+        "flowtype",
+        "flowtype-errors"
+    ],
+    "rules": {
+        "vue/jsx-uses-vars": 2,
+        "flowtype-errors/show-errors": 2,
+        "flowtype/require-parameter-type": 1,
+        "flowtype/require-return-type": [
+            1,
+            "always",
+            {
+                "annotateUndefined": "never"
+            }
+        ],
+        "flowtype/space-after-type-colon": [
+            1,
+            "always"
+        ],
+        "flowtype/space-before-type-colon": [
+            1,
+            "never"
+        ],
+        "flowtype/type-id-match": [
+            1,
+            "^([A-Z][a-z0-9]+)+Type$"
+        ]
+    },
+    "settings": {
+        "flowtype": {
+            "onlyFilesWithFlowAnnotation": false
+        }
+    }
+}

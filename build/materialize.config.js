@@ -1,6 +1,6 @@
 
 module.exports = {
   styles: {
-    'materialize': true,
-  }
+    materialize: true,
+  },
 };
