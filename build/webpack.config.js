@@ -63,7 +63,7 @@ const config = {
     new BrowserSyncPlugin({
       host: 'localhost',
       port: 3005,
-      proxy: 'http://phpinstajax.dev/',
+      proxy: 'phpinstajax.dev',
     }),
   ],
 };

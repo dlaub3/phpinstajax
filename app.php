@@ -5,20 +5,28 @@ require_once('functions.php');
 if (isAjax()) {
 }
 
-if (isset($_POST['search']) && $_POST['search'] != '') {
-    $search = $_POST['search'];
+
+if (isset($_POST['data']) && $_POST['data'] != '') {
+    $search = json_decode($_POST["data"]);
 } else {
     exit;
 }
 
+/*
+ *echo gettype($search);
+ *echo var_dump($search);
+ *echo $search->search;
+ *
+ */
+
 
 $query = new ClassCurlInstagram;
-if (isset($_POST['option']) && $_POST['option'] === 'username') {
+if (isset($search->option) && $search->option === 'username') {
     //search for a user
-    $data = $query->query($search);
+    $data = $query->query($search->search);
 } else {
     //default search is tag
-    $data = $query->query($search, 'explore/tags/');
+    $data = $query->query($search->search, 'explore/tags/');
 }
 
 

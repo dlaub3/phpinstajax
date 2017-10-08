@@ -30949,49 +30949,50 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-  name: 'app',
-  components: {
-    'profile': __WEBPACK_IMPORTED_MODULE_0__Profile_vue__["a" /* default */],
-    'search': __WEBPACK_IMPORTED_MODULE_1__Search_vue__["a" /* default */]
-  },
-  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapGetters */])(['getResponseData'])),
-  data() {
-    return {
-      h1: "PHPInstajax",
-      responseData: {},
-      error: null
-    };
-  },
-  methods: {
-    getUserInfo(e) {
-      //manually setting values since
-      //materialize-css stores selected option
-      //in HTML li not the input
-      let option = $(".active>span").html();
-      let search = $('#form [name="username"]').val();
-      let formData = { "option": option, "search": search };
-      let self = this;
-      $.post({
-        url: "app.php",
-        data: formData,
-        dataType: "text",
-        success: function (data) {
-          data = JSON.parse(data);
-          if (data.error) {
-            self.error = data.error;
-          } else {
-            self.error = null;
-          }
-          if (data.tag) {
-            self.$store.commit('update', data.tag);
-          } else if (data.user) {
-            self.$store.commit('update', data.user);
-          }
+    name: 'app',
+    components: {
+        'profile': __WEBPACK_IMPORTED_MODULE_0__Profile_vue__["a" /* default */],
+        'search': __WEBPACK_IMPORTED_MODULE_1__Search_vue__["a" /* default */]
+    },
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapGetters */])(['getResponseData'])),
+    data() {
+        return {
+            h1: "PHPInstajax",
+            responseData: {},
+            error: null
+        };
+    },
+    methods: {
+        getUserInfo(e) {
+            //manually setting values since
+            //materialize-css stores selected option
+            //in HTML li not the input
+            let option = $(".active>span").html();
+            let search = $('#form [name="username"]').val();
+            let formData = { "option": option, "search": search };
+            formData = JSON.stringify(formData);
+            let self = this;
+            $.post({
+                url: "app.php",
+                data: 'data=' + formData,
+                dataType: "text",
+                success: function (data) {
+                    data = JSON.parse(data);
+                    if (data.error) {
+                        self.error = data.error;
+                    } else {
+                        self.error = null;
+                    }
+                    if (data.tag) {
+                        self.$store.commit('update', data.tag);
+                    } else if (data.user) {
+                        self.$store.commit('update', data.user);
+                    }
+                }
+            });
+            return false;
         }
-      });
-      return false;
     }
-  }
 });
 
 /***/ }),
@@ -31824,7 +31825,7 @@ var staticRenderFns = [
         attrs: { type: "submit", name: "submit" }
       },
       [
-        _vm._v("Submit\n        "),
+        _vm._v("Submit\n                    "),
         _c("i", { staticClass: "material-icons right" }, [_vm._v("send")])
       ]
     )
