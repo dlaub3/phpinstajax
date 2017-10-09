@@ -23879,33 +23879,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_App_vue__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store__ = __webpack_require__(46);
+
 
 
 
 
 __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */].use(__WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */]);
 
-/* eslint-disable  no-param-reassign */
-var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
-  state: {
-    responseData: {}
-  },
-  mutations: {
-    update: function update(state, payload) {
-      state.responseData = payload;
-    }
-  },
-  getters: {
-    getResponseData: function getResponseData(state) {
-      return state.responseData;
-    }
-  }
-});
-
 /* eslint-disable no-new */
 new __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */]({
   el: '#app',
-  store: store,
+  store: __WEBPACK_IMPORTED_MODULE_3__store__["a" /* default */],
   render: function render(h) {
     return h(__WEBPACK_IMPORTED_MODULE_2__components_App_vue__["a" /* default */]);
   }
@@ -30961,39 +30946,19 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapGetters */])(['getResponseData'])),
     data() {
         return {
-            h1: "PHPInstajax",
-            error: null
+            h1: "PHPInstajax"
         };
     },
     methods: {
         getUserInfo(e) {
             //manually setting values since
             //materialize-css stores selected option
-            //in HTML li not the input
+            //in HTML <li> not the input
             let option = $(".active>span").html();
             let search = $('#form [name="username"]').val();
             let formData = { "option": option, "search": search };
             formData = JSON.stringify(formData);
-            let self = this;
-            $.post({
-                url: "app.php",
-                data: 'data=' + formData,
-                dataType: "text",
-                success: function (data) {
-                    data = JSON.parse(data);
-                    if (data.error) {
-                        self.error = data.error;
-                    } else {
-                        self.error = null;
-                    }
-                    if (data.tag) {
-                        self.$store.commit('update', data.tag);
-                    } else if (data.user) {
-                        self.$store.commit('update', data.user);
-                    }
-                }
-            });
-            return false;
+            this.$store.dispatch('apiRequest', formData);
         }
     }
 });
@@ -31052,8 +31017,9 @@ if (false) {(function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Media_vue__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(46);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Media_vue__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(0);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
@@ -31104,11 +31070,13 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 
+
 /* harmony default export */ __webpack_exports__["a"] = ({
-  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])(['getResponseData'])),
+  store: __WEBPACK_IMPORTED_MODULE_0__store__["a" /* default */],
+  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapGetters */])(['getResponseData'])),
   name: 'profile',
   components: {
-    'media': __WEBPACK_IMPORTED_MODULE_0__Media_vue__["a" /* default */]
+    'media': __WEBPACK_IMPORTED_MODULE_1__Media_vue__["a" /* default */]
   }
 });
 
@@ -31476,7 +31444,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 
+
 /* harmony default export */ __webpack_exports__["a"] = ({
+
   computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["b" /* mapGetters */])(['getResponseData'])),
   name: 'search',
   components: {
@@ -31673,7 +31643,7 @@ var render = function() {
       staticClass: "row"
     },
     _vm._l(_vm.getResponseData.media.nodes, function(media) {
-      return _vm.getResponseData.media.nodes
+      return _vm.getResponseData.media && _vm.getResponseData.media.nodes
         ? _c(
             "div",
             { staticClass: "col s12 m4 l3" },
@@ -31740,14 +31710,14 @@ var render = function() {
               {
                 name: "show",
                 rawName: "v-show",
-                value: _vm.error,
-                expression: "error"
+                value: _vm.getResponseData.error,
+                expression: "getResponseData.error"
               }
             ],
             staticClass: "red btn error darken-2",
             on: {
               click: function($event) {
-                _vm.error = null
+                _vm.getResponseData.error = null
               }
             }
           },
@@ -31755,7 +31725,7 @@ var render = function() {
             _c("i", { staticClass: "close material-icons right" }, [
               _vm._v("close")
             ]),
-            _vm._v(_vm._s(_vm.error))
+            _vm._v(_vm._s(_vm.getResponseData.error))
           ]
         )
       ])
@@ -32463,6 +32433,58 @@ module.exports = function (css) {
 	// send back the fixed css
 	return fixedCss;
 };
+
+/***/ }),
+/* 46 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(0);
+
+
+
+__WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */].use(__WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */]);
+
+/* eslint-disable  no-param-reassign */
+/* harmony default export */ __webpack_exports__["a"] = (new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
+  state: {
+    responseData: {}
+  },
+  mutations: {
+    update: function update(state, payload) {
+      state.responseData = payload;
+    }
+  },
+  getters: {
+    getResponseData: function getResponseData(state) {
+      return state.responseData;
+    }
+  },
+  actions: {
+    apiRequest: function apiRequest(context, formData) {
+      $.post({
+        url: 'app.php',
+        data: 'data=' + formData,
+        dataType: 'text',
+        success: function success(data) {
+          data = JSON.parse(data);
+          if (data.error) {
+            context.commit('update', data);
+          } else {
+            data.error = null;
+            context.commit('update', data);
+          }
+          if (data.tag) {
+            context.commit('update', data.tag);
+          } else if (data.user) {
+            context.commit('update', data.user);
+          }
+        }
+      });
+    }
+  }
+}));
 
 /***/ })
 /******/ ]);

@@ -3,24 +3,9 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import App from './components/App.vue';
+import store from './store';
 
 Vue.use(Vuex);
-
-
-/* eslint-disable  no-param-reassign */
-const store = new Vuex.Store({
-  state: {
-    responseData: {},
-  },
-  mutations: {
-    update(state: Object, payload: Object) {
-      state.responseData = payload;
-    },
-  },
-  getters: {
-    getResponseData: (state: Object): Object => state.responseData,
-  },
-});
 
 /* eslint-disable no-new */
 new Vue({

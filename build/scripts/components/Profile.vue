@@ -44,11 +44,13 @@
 </template>
 
 <script>
+import store from '../store';
 import Media from './Media.vue';
 import {
   mapGetters
 } from 'vuex';
 export default {
+  store,
   computed: {
     ...mapGetters([
       'getResponseData'

@@ -19,22 +19,22 @@
                         <i class="material-icons right">send</i>
                     </button>
                 </form>
-                <h2 class="red btn error darken-2" v-on:click="error = null" v-show="error"><i class="close material-icons right">close</i>{{error}}</h2>
+                <h2 class="red btn error darken-2" v-on:click="getResponseData.error = null" v-show="getResponseData.error"><i class="close material-icons right">close</i>{{getResponseData.error}}</h2>
             </div>
         </header>
         <div class="row">
             <div v-if="getResponseData &&
-                       getResponseData.followed_by &&
-                       getResponseData.followed_by.count
-                       ">
+                getResponseData.followed_by &&
+                getResponseData.followed_by.count
+                ">
                 <!-- null value allows state to reset and update view -->
                 <profile></profile>
             </div>
 
             <div v-if="getResponseData &&
-                 getResponseData.media &&
-                 getResponseData.media.nodes
-                 ">
+                getResponseData.media &&
+                getResponseData.media.nodes
+                ">
                 <!-- null value allows state to reset and update view -->
                 <search></search>
                 </div >
@@ -43,7 +43,7 @@
         </main>
     </template>
 
-<script>
+    <script>
 /* @flow */
 
 import Profile from './Profile.vue';
@@ -67,38 +67,18 @@ export default {
     data () {
         return {
             h1: "PHPInstajax",
-            error: null
         }
     },
     methods: {
         getUserInfo(e) {
             //manually setting values since
             //materialize-css stores selected option
-            //in HTML li not the input
+            //in HTML <li> not the input
             let option = $(".active>span").html();
             let search = $('#form [name="username"]').val();
             let formData = {"option":  option, "search": search};
             formData = JSON.stringify(formData);
-            let self = this;
-            $.post({
-                url: "app.php",
-                data: 'data=' + formData,
-                dataType: "text",
-                success: function(data) {
-                    data = JSON.parse(data);
-                    if (data.error) {
-                        self.error = data.error;
-                    } else {
-                        self.error = null;
-                    }
-                    if (data.tag) {
-                        self.$store.commit('update', data.tag);
-                    } else if (data.user){
-                        self.$store.commit('update', data.user);
-                    }
-                }
-            });
-            return false;
+            this.$store.dispatch('apiRequest', formData);
         }
     }
 }
