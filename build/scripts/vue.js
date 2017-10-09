@@ -11,5 +11,5 @@ Vue.use(Vuex);
 new Vue({
   el: '#app',
   store,
-  render: (h: Object): Object => h(App),
+  render: (h): Object => h(App),
 });

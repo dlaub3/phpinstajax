@@ -65,6 +65,7 @@ const config = {
       port: 3005,
       proxy: 'phpinstajax.dev',
     }),
+    new webpack.optimize.ModuleConcatenationPlugin(),
   ],
 };
 

@@ -46,7 +46,7 @@
     <script>
 /* @flow */
 
-import Profile from './Profile.vue';
+    import Profile from './Profile.vue';
 import Search from './Search.vue';
 import {
     mapGetters

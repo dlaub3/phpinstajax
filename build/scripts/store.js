@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import $ from 'jquery';
 
 Vue.use(Vuex);
 
@@ -35,8 +36,14 @@ export default new Vuex.Store({
           } else if (data.user) {
             context.commit('update', data.user);
           }
-        }
+        },
       });
-    }
-  }
+    },
+  },
 });
+
+
+// Notes
+// http://blog.toast38coza.me/make-your-vuex-store-globally-available-by-registering-it-as-a-plugin/
+// https://vuejsdevelopers.com/2017/08/28/vue-js-ajax-recipes/
+// https://github.com/vuejs/vuex/issues/366

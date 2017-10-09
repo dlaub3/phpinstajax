@@ -1,5 +1,6 @@
 <?php
 ini_set('display_errors', 'on');
+header("Link: </dist/bundle.js>; rel=preload; as=script", false);
 ?>
 <!DOCTYPE html>
 <html lang="en">
