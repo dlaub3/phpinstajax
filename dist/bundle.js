@@ -23879,8 +23879,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_App_vue__ = __webpack_require__(15);
-/* @flw */
-
 
 
 
@@ -30941,7 +30939,13 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -30958,7 +30962,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     data() {
         return {
             h1: "PHPInstajax",
-            responseData: {},
             error: null
         };
     },
@@ -31658,14 +31661,26 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "row" },
+    {
+      directives: [
+        {
+          name: "show",
+          rawName: "v-show",
+          value: _vm.getResponseData != null,
+          expression: "getResponseData != null"
+        }
+      ],
+      staticClass: "row"
+    },
     _vm._l(_vm.getResponseData.media.nodes, function(media) {
-      return _c(
-        "div",
-        { staticClass: "col s12 m4 l3" },
-        [_c("tag", { attrs: { media: media } })],
-        1
-      )
+      return _vm.getResponseData.media.nodes
+        ? _c(
+            "div",
+            { staticClass: "col s12 m4 l3" },
+            [_c("tag", { attrs: { media: media } })],
+            1
+          )
+        : _vm._e()
     })
   )
 }
@@ -31746,53 +31761,19 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _c(
-      "div",
-      {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: _vm.getResponseData != {},
-            expression: "getResponseData != {}"
-          }
-        ],
-        staticClass: "row"
-      },
-      [
-        _c(
-          "div",
-          {
-            directives: [
-              {
-                name: "show",
-                rawName: "v-show",
-                value: _vm.getResponseData.username != null,
-                expression: "getResponseData.username != null"
-              }
-            ]
-          },
-          [_c("profile")],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            directives: [
-              {
-                name: "show",
-                rawName: "v-show",
-                value: _vm.getResponseData.name != null,
-                expression: "getResponseData.name != null"
-              }
-            ]
-          },
-          [_c("search")],
-          1
-        )
-      ]
-    )
+    _c("div", { staticClass: "row" }, [
+      _vm.getResponseData &&
+      _vm.getResponseData.followed_by &&
+      _vm.getResponseData.followed_by.count
+        ? _c("div", [_c("profile")], 1)
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.getResponseData &&
+      _vm.getResponseData.media &&
+      _vm.getResponseData.media.nodes
+        ? _c("div", [_c("search")], 1)
+        : _vm._e()
+    ])
   ])
 }
 var staticRenderFns = [

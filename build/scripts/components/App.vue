@@ -22,12 +22,19 @@
                 <h2 class="red btn error darken-2" v-on:click="error = null" v-show="error"><i class="close material-icons right">close</i>{{error}}</h2>
             </div>
         </header>
-        <div class="row" v-show="getResponseData != {}">
-            <div v-show="getResponseData.username != null">
+        <div class="row">
+            <div v-if="getResponseData &&
+                       getResponseData.followed_by &&
+                       getResponseData.followed_by.count
+                       ">
                 <!-- null value allows state to reset and update view -->
                 <profile></profile>
             </div>
-            <div v-show="getResponseData.name != null">
+
+            <div v-if="getResponseData &&
+                 getResponseData.media &&
+                 getResponseData.media.nodes
+                 ">
                 <!-- null value allows state to reset and update view -->
                 <search></search>
                 </div >
@@ -36,7 +43,8 @@
         </main>
     </template>
 
-    <script>
+<script>
+/* @flow */
 
 import Profile from './Profile.vue';
 import Search from './Search.vue';
@@ -59,7 +67,6 @@ export default {
     data () {
         return {
             h1: "PHPInstajax",
-            responseData: {},
             error: null
         }
     },

@@ -1,6 +1,6 @@
 <template>
-<div class="row">
-    <div class="col s12 m4 l3" v-for="media in getResponseData.media.nodes">
+<div class="row" v-show="getResponseData != null">
+    <div class="col s12 m4 l3" v-if="getResponseData.media.nodes" v-for="media in getResponseData.media.nodes">
       <tag :media="media"></tag>
     </div>
 </div>
